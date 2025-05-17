@@ -4,15 +4,17 @@
 /* spacemod.cpp -- simple model for C++ space */
 
 #include <iostream>
+#include <cstdint>
+
 using namespace std;
 
 #define MEASURE(T, text) {					\
 	cout << text << "\t";					\
 	cout << sizeof(T) << "\t";				\
-	int lastp = 0;							\
+	uintptr_t lastp = 0;							\
 	for (int i = 0; i < 11; i++) {			\
 		T *p = new T;						\
-		int thisp = (int) p;				\
+		uintptr_t thisp = (uintptr_t) p;				\
 		if (lastp != 0)						\
 			cout << " " << thisp - lastp;	\
 		lastp = thisp;						\
@@ -47,7 +49,7 @@ struct structc61 { char c[61]; };
 
 int main()
 {	cout << "Raw sizeof";
-	cout << "\nsizeof(char)="     << sizeof(char);	
+	cout << "\nsizeof(char)="     << sizeof(char);
 	cout << "  sizeof(short)="    << sizeof(short);
 	cout << "  sizeof(int)="      << sizeof(int);
 	cout << "\nsizeof(float)="    << sizeof(float);
@@ -74,11 +76,11 @@ int main()
 	MEASURE(structc60, "structc60");
 	MEASURE(structc61, "structc61");
 
-	
+
 	cout << "\nmeasure template (strange results)\n";
 	// Uncomment below lines to see answers change
 	measure<int>("int");
-//	measure<structc>("structc");
-//	measure<structic>("structic");
+	// measure<structc>("structc");
+	// measure<structic>("structic");
 	return 0;
 }
